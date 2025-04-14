@@ -14,14 +14,25 @@ model = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"
 
 # Title
 st.title("📊 Virtual Data Analyst Assistant")
-st.write("Upload your CSV and ask anything about the data!")
+st.write("Upload your CSV or Excel file and ask anything about the data!")
 
 # File uploader
-uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+uploaded_file = st.file_uploader("Upload your data file (.csv or .xlsx)", type=["csv", "xlsx"])
 
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.subheader("Data Preview")
+    try:
+        if uploaded_file.name.endswith(".csv"):
+            df = pd.read_csv(uploaded_file)
+        elif uploaded_file.name.endswith(".xlsx"):
+            df = pd.read_excel(uploaded_file)
+        else:
+            st.error("Unsupported file format.")
+            st.stop()
+    except Exception as e:
+        st.error(f"Error reading file: {e}")
+        st.stop()
+
+    st.subheader("🧾 Data Preview")
     st.dataframe(df.head())
 
     st.subheader("💬 Ask a Question About Your Data")
@@ -30,7 +41,6 @@ if uploaded_file is not None:
     if user_question:
         sample_data = df.head(10).to_string(index=False)
 
-        # Build AI prompt for answering the question
         prompt = f"""You are a data analyst assistant. Analyze the dataset and answer the following user question clearly.
         
         DATA SAMPLE:
@@ -50,7 +60,6 @@ if uploaded_file is not None:
             st.success("🧠 Insight")
             st.write(ai_reply)
 
-        # Ask for chart recommendation
         chart_prompt = f"""Based on the data sample below, and the user's question, suggest a chart type and which columns to use.
 
         DATA SAMPLE:
@@ -73,7 +82,6 @@ if uploaded_file is not None:
         chart_reply = chart_response.choices[0].message.content.strip()
         st.info("📊 Chart Suggestion:\n" + chart_reply)
 
-        # Try to parse and plot the chart
         try:
             lines = chart_reply.splitlines()
             chart_type = lines[0].split(":")[1].strip().lower()
@@ -93,7 +101,6 @@ if uploaded_file is not None:
         except Exception as e:
             st.warning("⚠️ Couldn't generate chart. Reason: " + str(e))
 
-        # Feedback
         st.markdown("### 🗳️ Was this answer helpful?")
         col1, col2 = st.columns(2)
         with col1:
@@ -103,7 +110,6 @@ if uploaded_file is not None:
             if st.button("👎 No"):
                 st.warning("Thanks — we'll use this to improve.")
 
-        # Download insight
         if st.button("📥 Download AI Answer"):
             filename = f"ai_insight_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
             with open(filename, "w") as f:
@@ -117,4 +123,4 @@ if uploaded_file is not None:
                 st.download_button("Download Insight (.txt)", data=f, file_name=filename)
 
 else:
-    st.info("👈 Please upload a CSV file to get started.")
+    st.info("👈 Please upload a CSV or Excel file to get started.")
