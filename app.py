@@ -5,7 +5,7 @@ from together import Together
 from datetime import datetime
 
 # Set page config
-st.set_page_config(page_title="AI Data Analyst Assistant", layout="wide")
+st.set_page_config(page_title="Virtual Data Analyst Assistant", layout="wide")
 
 # Load Together AI API Key
 TOGETHER_API_KEY = st.secrets["TOGETHER_API_KEY"]
@@ -13,7 +13,7 @@ client = Together(api_key=TOGETHER_API_KEY)
 model = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"
 
 # Title
-st.title("📊 AI Data Analyst Assistant")
+st.title("📊 Virtual Data Analyst Assistant")
 st.write("Upload your CSV and ask anything about the data!")
 
 # File uploader
