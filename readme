@@ -1,0 +1,92 @@
+# Virtual Data Analyst Assistant 📊🤖
+
+An interactive Streamlit-based chatbot that combines **Large Language Models (LLMs)** with **real data analysis** using Pandas. This assistant can:
+
+- 🔍 Answer natural language questions about your data
+- 📈 Auto-detect and visualize the best chart type (bar, pie, line, etc.)
+- 📥 Support CSV upload and give instant insights
+- 📤 Allow export/download of insights
+- 💬 Provide smart responses using Together AI's LLaMA model
+
+---
+
+## 🚀 Features
+
+| Feature | Description |
+|--------|-------------|
+| 📊 Chart Detection | Automatically chooses best chart for the insight (bar, line, pie) |
+| 🧠 LLM-Powered Chat | Uses Together AI (LLaMA) to answer any question about your dataset |
+| 📁 CSV Upload | Drag-and-drop or upload any dataset (sales, HR, marketing, etc.) |
+| 📤 Export Insights | Download insight summary as text or CSV |
+| 🗣 Smart Feedback | Provide suggestions or corrections using a feedback box |
+
+---
+
+## 🛠 How to Run Locally
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/yourusername/Virtual-data-analyst-assistant.git
+cd Virtual-data-analyst-assistant
+```
+
+### 2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Add your Together AI API key
+Create a file `.streamlit/secrets.toml`:
+```toml
+TOGETHER_API_KEY = "your_api_key_here"
+```
+
+### 4. Run the app
+```bash
+streamlit run app.py
+```
+
+---
+
+## 📁 Project Structure
+```
+ai-data-analyst-assistant/
+├── app.py                      # Main Streamlit app
+├── data_utils.py              # Handles CSV upload + parsing
+├── analysis_engine.py         # Generates visualizations and summaries
+├── chat_logic.py              # Handles LLM prompts and responses
+├── requirements.txt           # Required Python packages
+└── .streamlit/
+    └── secrets.toml           # API keys for Together AI
+```
+
+---
+
+## 🔒 API Key Usage
+The app uses Together AI's LLaMA model for Q&A. Keep your key safe in:
+```
+.streamlit/secrets.toml
+```
+Never hardcode it inside `.py` files.
+
+---
+
+## ✅ Example Questions to Ask the Assistant
+- "Which product has the highest revenue?"
+- "Show me a bar chart of sales by region"
+- "What's the trend of user signups in 2023?"
+- "Is there a correlation between age and purchase amount?"
+
+---
+
+## 🧠 Future Upgrades
+- Time-series forecasting
+- Multi-file comparison
+- Save chat history
+- Dashboard export as PDF
+
+---
+
+## 👨‍💻 Built By
+**Aravind S** — Making smart data analysis accessible for everyone.
+
