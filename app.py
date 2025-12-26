@@ -10,7 +10,7 @@ st.set_page_config(page_title="Virtual Data Analyst Assistant", layout="wide")
 # Load Together AI API Key
 TOGETHER_API_KEY = st.secrets["TOGETHER_API_KEY"]
 client = Together(api_key=TOGETHER_API_KEY)
-model = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"
+model = "deepseek-ai/DeepSeek-V3.1"
 
 # Title
 st.title("📊 Virtual Data Analyst Assistant")
@@ -124,3 +124,4 @@ if uploaded_file is not None:
 
 else:
     st.info("👈 Please upload a CSV or Excel file to get started.")
+
